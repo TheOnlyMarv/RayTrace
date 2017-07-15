@@ -51,6 +51,9 @@ struct {
 	} light;
 
 int yylex();
+extern void set_resolution(int x, int y);
+extern void set_eyepoint(double x, double y, double z);
+extern void set_lookat(double x, double y, double z);
 extern void add_quadric(char *n, double a, double b, double c, double d, double e, double f, double g, double h, double j, double k);
 extern void add_property(char *n, double ar, double ag, double ab, double r, double g, double b, double s, double m);
 extern void add_objekt(char *ns, char *np);
@@ -75,7 +78,7 @@ extern void add_light(char *n, double dirx, double diry, double dirz, double col
 %%
 
 scene 
-    : /* picture_parameters some_viewing_parameters global_lighting */ geometry
+    : picture_parameters some_viewing_parameters /* global_lighting */ geometry
     ;
 
 some_viewing_parameters
@@ -126,7 +129,10 @@ viewing_parameter
 
 resolution
     : RESOLUTION index index
-      { printf("resolution %d %d\n", $2, $3 ); }
+		{ 
+			set_resolution($2, $3);
+			printf("resolution %d %d\n", $2, $3 ); 
+		}
     ;
 
 background
@@ -137,12 +143,12 @@ background
 
 eyepoint
     : EYEPOINT realVal realVal realVal
-      { printf("eyepoint %f %f %f\n", $2, $3, $4 ); }
+      { set_eyepoint($2, $3, $4); printf("eyepoint %f %f %f\n", $2, $3, $4 ); }
     ;
 
 lookat
     : LOOKAT realVal realVal realVal
-      { printf("lookat %f %f %f\n", $2, $3, $4 ); }
+      { set_lookat($2, $3, $4); printf("lookat %f %f %f\n", $2, $3, $4 ); }
     ;
 
 up
