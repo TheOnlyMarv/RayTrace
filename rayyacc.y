@@ -54,6 +54,9 @@ int yylex();
 extern void set_resolution(int x, int y);
 extern void set_eyepoint(double x, double y, double z);
 extern void set_lookat(double x, double y, double z);
+extern void set_up(double x, double y, double z);
+extern void set_fovy(double angle);
+extern void set_aspect(double aspect);
 extern void add_quadric(char *n, double a, double b, double c, double d, double e, double f, double g, double h, double j, double k);
 extern void add_property(char *n, double ar, double ag, double ab, double r, double g, double b, double s, double m);
 extern void add_objekt(char *ns, char *np);
@@ -153,17 +156,17 @@ lookat
 
 up
     : UP realVal realVal realVal
-      { printf("up %f %f %f\n", $2, $3, $4); }
+      { set_up($2, $3, $4); printf("up %f %f %f\n", $2, $3, $4); }
     ;
 
 fovy
     : FOVY realVal
-      { printf("fovy %f\n", $2); }
+      { set_fovy($2); printf("fovy %f\n", $2); }
     ;
 
 aspect
     : ASPECT realVal
-      { printf("aspect %f\n", $2 ); }
+      { set_aspect($2); printf("aspect %f\n", $2 ); }
     ;
 
 global_lighting

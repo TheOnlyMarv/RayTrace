@@ -38,6 +38,15 @@ extern "C" {
 	void set_lookat(double x, double y, double z) {
 		lookAt = Vector(x, y, z);
 	}
+	void set_up(double x, double y, double z) {
+		// TODO
+	}
+	void set_fovy(double angle) {
+		// TODO
+	}
+	void set_aspect(double aspect) {
+		// TODO
+	}
 	void add_light(char *n, double dirx, double diry, double dirz, double colr, double colg, double colb) {
 		fprintf(stderr, "  adding light %f %f %f %f %f %f\n", dirx, diry, dirz, colr, colg, colb);
 		lights.push_back(Light(Vector(dirx, diry, dirz).normalize(), Color(colr, colg, colb)));
